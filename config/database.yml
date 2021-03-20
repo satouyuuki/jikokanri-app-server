@@ -9,9 +9,9 @@ default: &default
   encoding: utf8
   reconnect: false
   database: local_jikankanri
-  username: root
-  password: Uki0137y
-  host: localhost
+  username: <%= ENV.fetch("DB_USERNAME") { "root" } %>
+  password: <%= ENV.fetch("DB_PASSWORD") { "Uki0137y" } %>
+  host: <%= ENV.fetch("DB_HOST") { "localhost" } %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
@@ -29,3 +29,4 @@ test:
 production:
   <<: *default
   database: prod_jikankanri
+  socket: /var/lib/mysql/mysql.sock
