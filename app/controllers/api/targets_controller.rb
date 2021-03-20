@@ -1,4 +1,4 @@
-class TargetsController < ApplicationController
+class Api::TargetsController < ApplicationController
   def show
     @target = Target.all
     render json: @target
