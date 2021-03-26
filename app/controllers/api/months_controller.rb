@@ -23,6 +23,7 @@ class Api::MonthsController < ApplicationController
     id = params[:id]
     @month = Month.find(id)
     @month.destroy
+    # 帰ってくる
     render json: @month
   end
 end
