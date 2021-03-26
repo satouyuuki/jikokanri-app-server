@@ -4,6 +4,10 @@ Rails.application.routes.draw do
     resource :targets
     put '/targets/:id', to: 'targets#update'
     delete '/targets/:id', to: 'targets#destroy'
+
+    get 'months', to: 'months#show'
+    post 'months', to: 'months#create'
+    delete 'months/:id', to: 'months#destroy'
   end
   
 end
