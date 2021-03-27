@@ -1,7 +1,7 @@
 class Api::MonthsController < ApplicationController
   def show
     @month = Month.all
-    render json: @month
+    render json: @month, include: 'weeks'
   end
   def create
     @month = Month.new(
@@ -17,7 +17,7 @@ class Api::MonthsController < ApplicationController
         @week.save!
       end
     end
-    render json: @month
+    render json: @month, include: 'weeks'
   end
   def destroy
     id = params[:id]
