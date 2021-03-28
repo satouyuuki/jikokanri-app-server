@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_26_035804) do
+ActiveRecord::Schema.define(version: 2021_03_27_143904) do
 
   create_table "months", charset: "utf8", force: :cascade do |t|
     t.integer "month"
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 2021_03_26_035804) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "week_done_lists", charset: "utf8", force: :cascade do |t|
+    t.bigint "week_id"
+    t.bigint "target_list_id"
+    t.integer "done_num"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["target_list_id"], name: "index_week_done_lists_on_target_list_id"
+    t.index ["week_id"], name: "index_week_done_lists_on_week_id"
+  end
+
   create_table "weeks", charset: "utf8", force: :cascade do |t|
     t.integer "week"
     t.bigint "month_id"
@@ -45,5 +55,7 @@ ActiveRecord::Schema.define(version: 2021_03_26_035804) do
   end
 
   add_foreign_key "target_lists", "months"
+  add_foreign_key "week_done_lists", "target_lists"
+  add_foreign_key "week_done_lists", "weeks"
   add_foreign_key "weeks", "months"
 end

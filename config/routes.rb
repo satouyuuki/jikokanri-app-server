@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     post 'target_lists/:id', to: 'target_lists#upsert'
     put 'target_lists/:id', to: 'target_lists#upsert'
     delete 'target_lists/:id', to: 'target_lists#destroy'
+
+    get 'done_lists/:week_id', to: 'week_done_lists#show'
+    post 'done_lists', to: 'week_done_lists#create'
   end
   
 end
