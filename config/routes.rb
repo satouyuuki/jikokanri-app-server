@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     delete 'target_lists/:id', to: 'target_lists#destroy'
 
     get 'done_lists/:week_id', to: 'week_done_lists#show'
-    post 'done_lists', to: 'week_done_lists#create'
+    post 'done_lists', to: 'week_done_lists#upsert'
   end
   
 end
