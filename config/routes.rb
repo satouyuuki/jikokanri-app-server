@@ -9,13 +9,14 @@ Rails.application.routes.draw do
     post 'months', to: 'months#create'
     delete 'months/:id', to: 'months#destroy'
 
-    get 'target_lists/:id', to: 'target_lists#show'
-    post 'target_lists/:id', to: 'target_lists#upsert'
-    put 'target_lists/:id', to: 'target_lists#upsert'
+    get 'target_lists', to: 'target_lists#show'
+    post 'target_lists', to: 'target_lists#upsert'
+    put 'target_lists', to: 'target_lists#upsert'
     delete 'target_lists/:id', to: 'target_lists#destroy'
 
     get 'done_lists/:week_id', to: 'week_done_lists#show'
     post 'done_lists', to: 'week_done_lists#upsert'
+    delete 'done_lists/:id', to: 'week_done_lists#destroy'
   end
   
 end

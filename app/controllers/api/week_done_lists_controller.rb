@@ -25,6 +25,13 @@ class Api::WeekDoneListsController < ApplicationController
     render json: res_data(week_id)
   end
 
+  def destroy
+    done_list = WeekDoneList.find(params[:id])
+    done_list.destroy!
+    render json: res_data(done_list.week_id)
+  end
+
+
   private
   def done_list_params
     params.require(:done_data).permit(:week_id, {done_lists: [:target_list_id, :done_num]})
