@@ -40,6 +40,7 @@ class Api::TargetListsController < ApplicationController
       target_list_data[:id] = target_list.id
       target_list_data[:target_text] = target_list.target_text
       target_list_data[:target_num] = target_list.target_num
+      target_list_data[:done_num_sum] = target_list.week_done_lists.all.sum(:done_num)
       targets_data.push(target_list_data)
     end
     targets_data
