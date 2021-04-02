@@ -1,7 +1,7 @@
 class Api::TargetListsController < ApplicationController
   def show
     month = Month.find(params[:month_id])
-    render json: res_data(month.target_lists)
+    render json: TargetListService.res_data(month.target_lists)
   end
   def upsert
     targets_data = target_list_params
@@ -22,27 +22,15 @@ class Api::TargetListsController < ApplicationController
         end
       end
     end
-    render json: res_data(month.target_lists)
+    render json: TargetListService.res_data(month.target_lists)
   end
   def destroy
-    @target_list = TargetList.find(params[:id])
-    @target_list.destroy!
-    render json: res_data(@target_list.month.target_lists)
+    target_list = TargetList.find(params[:id])
+    target_list.destroy!
+    render json: TargetListService.res_data(target_list.month.target_lists)
   end
   private
   def target_list_params
     params.require(:target_data).permit(:month_id, {target_lists: [:target_text, :target_num, :id]})
-  end
-  def res_data(target_lists)
-    targets_data = []
-    target_lists.each do |target_list|
-      target_list_data = {}
-      target_list_data[:id] = target_list.id
-      target_list_data[:target_text] = target_list.target_text
-      target_list_data[:target_num] = target_list.target_num
-      target_list_data[:done_num_sum] = target_list.week_done_lists.all.sum(:done_num)
-      targets_data.push(target_list_data)
-    end
-    targets_data
   end
 end
