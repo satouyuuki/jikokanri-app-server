@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_28_160953) do
+ActiveRecord::Schema.define(version: 2021_04_02_051641) do
 
   create_table "months", charset: "utf8", force: :cascade do |t|
     t.integer "month"
@@ -27,13 +27,6 @@ ActiveRecord::Schema.define(version: 2021_03_28_160953) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["month_id"], name: "index_target_lists_on_month_id"
-  end
-
-  create_table "targets", charset: "utf8", force: :cascade do |t|
-    t.integer "total_time"
-    t.string "achieved_text"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "week_done_lists", charset: "utf8", force: :cascade do |t|
