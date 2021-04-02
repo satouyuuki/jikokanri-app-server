@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     post 'months', to: 'months#create'
     delete 'months/:id', to: 'months#destroy'
 
-    get 'target_lists', to: 'target_lists#show'
+    get 'target_lists/:month_id', to: 'target_lists#show'
     post 'target_lists', to: 'target_lists#upsert'
     put 'target_lists', to: 'target_lists#upsert'
     delete 'target_lists/:id', to: 'target_lists#destroy'
