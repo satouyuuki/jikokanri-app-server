@@ -3,7 +3,7 @@
 class CognitoService
   class << self
     # create client instanse 
-    COGNITO = Aws::CognitoIdentityProvider::Client.new
+    COGNITO = Aws::CognitoIdentityProvider::Client.new(region: 'ap-northeast-1')
 
     def authenticate(user_object)
       auth_object = {
