@@ -1,7 +1,7 @@
 class Api::AuthController < ApplicationController
   def sign_in
     user_object = {
-      USERNAME: params[:username]
+      USERNAME: params[:username],
       PASSWORD: params[:password]
     }
     begin
