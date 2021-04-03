@@ -3,7 +3,13 @@
 class CognitoService
   class << self
     # create client instanse 
-    COGNITO = Aws::CognitoIdentityProvider::Client.new
+    COGNITO = Aws::CognitoIdentityProvider::Client.new(
+      region: ENV["AWS_REGION"],
+      credentials: Aws::Credentials.new(
+        ENV["AWS_ACCESS_KEY_ID"],
+        ENV["AWS_SECRET_ACCESS_KEY"]
+      )
+    )
 
     def authenticate(user_object)
       auth_object = {
