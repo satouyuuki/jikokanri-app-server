@@ -18,9 +18,10 @@ require "rails/test_unit/railtie"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
+# Rails.autoloaders.main.ignore(Rails.root.join('app/services'))
 module Server
   class Application < Rails::Application
+    # Rails.autoloaders.main.ignore(Rails.root.join('app/services'))
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
