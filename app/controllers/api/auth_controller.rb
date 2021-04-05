@@ -1,4 +1,16 @@
 class Api::AuthController < ApplicationController
+  def invitation
+    user_object = {
+      USERNAME: params[:username],
+      PASSWORD: params[:password]
+    }
+    begin
+      resp = CognitoService.invite_user_create(user_object)
+    rescue => exception
+      resp = exception
+    end
+    render json: resp
+  end
   def sign_in
     user_object = {
       USERNAME: params[:username],
@@ -9,10 +21,11 @@ class Api::AuthController < ApplicationController
     rescue => exception
       resp = exception
     end
+    render json: resp
   end
   def sign_out
-    if request.header['Authorization']
-      CognitoService.sign_out(request.header['Authorization'])
+    if request.headers['Authorization']
+      CognitoService.sign_out(request.headers['Authorization'])
       resp = {type: 'success', message: 'now you are disconected'}
     else
       resp = {type: 'error', message: 'empty token'}

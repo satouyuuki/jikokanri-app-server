@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_02_051641) do
+ActiveRecord::Schema.define(version: 2021_04_05_092300) do
 
   create_table "months", charset: "utf8", force: :cascade do |t|
     t.integer "month"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "year"
+    t.integer "user_id"
     t.index ["year", "month"], name: "index_months_on_year_and_month", unique: true
   end
 
@@ -27,6 +28,14 @@ ActiveRecord::Schema.define(version: 2021_04_02_051641) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["month_id"], name: "index_target_lists_on_month_id"
+  end
+
+  create_table "users", charset: "utf8", force: :cascade do |t|
+    t.string "email"
+    t.text "token"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   create_table "week_done_lists", charset: "utf8", force: :cascade do |t|
