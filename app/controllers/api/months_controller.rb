@@ -5,7 +5,8 @@ class Api::MonthsController < ApplicationController
   def create
     month = Month.new(
       month: params[:month],
-      year: params[:year]
+      year: params[:year],
+      user_id: current_user.id
     )
     month.transaction do
       month.save!
@@ -17,7 +18,6 @@ class Api::MonthsController < ApplicationController
       end
     end
     render json: MonthService.res_data
-    # render json: @month, include: 'weeks'
   end
   def destroy
     id = params[:id]

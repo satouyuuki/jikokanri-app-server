@@ -1,4 +1,6 @@
 class Api::AuthController < ApplicationController
+  skip_before_action :login_check
+  
   def invitation
     user_object = {
       USERNAME: params[:username],
@@ -7,7 +9,8 @@ class Api::AuthController < ApplicationController
     begin
       resp = CognitoService.invite_user_create(user_object)
     rescue => exception
-      resp = exception
+      # resp = exception
+      raise ApplicationError.new(TEST_ERROR, error: exception) if exception
     end
     render json: resp
   end
@@ -18,10 +21,17 @@ class Api::AuthController < ApplicationController
     }
     begin
       resp = CognitoService.authenticate(user_object).authentication_result
+      resp_data = {}
+      resp_data[:access_token] = resp.access_token
+      User.transaction do
+        user = User.find_by(email: params[:username])
+        user.token = resp_data[:access_token]
+        user.save!
+      end
     rescue => exception
-      resp = exception
+      raise ApplicationError.new(TEST_ERROR, error: exception) if exception
     end
-    render json: resp
+    render json: resp_data
   end
   def sign_out
     if request.headers['Authorization']

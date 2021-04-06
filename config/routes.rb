@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     post 'auth/sign_in', to: 'auth#sign_in'
     post 'auth/sign_out', to: 'auth#sign_out'
+    post 'auth/invitation', to: 'auth#invitation'
 
     get 'months', to: 'months#show'
     post 'months', to: 'months#create'
