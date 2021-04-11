@@ -11,7 +11,10 @@ class ApplicationController < ActionController::API
 
   def current_user
     logger.info('application_controllerのcurrent_user')
-    logger.info(request.headers)
+    logger.info('application_controllerのAuthorization')
+    logger.info(request.headers['Authorization'])
+    logger.info('application_controllerのauthorization')
+    logger.info(request.headers['authorization'])
     request_token = request.headers['Authorization']
     return unless request_token
     logger.info('request_token = ')
