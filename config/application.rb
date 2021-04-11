@@ -23,7 +23,9 @@ module Server
   class Application < Rails::Application
     # Rails.autoloaders.main.ignore(Rails.root.join('app/services'))
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    # config.load_defaults 6.1
+    config.load_defaults 6.0
+    config.autoloader = :classic
 
     # Configuration for the application, engines, and railties goes here.
     #
