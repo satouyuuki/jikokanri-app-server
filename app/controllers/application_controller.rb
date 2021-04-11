@@ -12,7 +12,8 @@ class ApplicationController < ActionController::API
   def current_user
     request_token = request.headers['Authorization']
     return unless request_token
-
+    logger.debug('request_token = ')
+    logger.debug(request_token)
     @current_user = User.find_by(token: request_token)
     User.current_user = @current_user
     @current_user
