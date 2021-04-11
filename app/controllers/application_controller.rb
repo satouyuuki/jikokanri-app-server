@@ -60,6 +60,6 @@ class ApplicationController < ActionController::API
   end
   def set_res_header
     # キャッシュを無効化する
-    response.set_header('Cache-Control', 'no-cache')
+    response.set_header('Cache-Control', 'no-cache, max-age=0')
   end
 end
