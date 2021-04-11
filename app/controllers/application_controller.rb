@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
   before_action :current_user
   before_action :login_check
+  before_action :set_res_header
 
   rescue_from Exception, with: :handle_error
 
@@ -56,5 +57,9 @@ class ApplicationController < ActionController::API
   # コントロールされたアプリケーションエラーを返却する
   def _render_app_err(error)
     render json: {error: error.error}, status: :internal_server_error
+  end
+  def set_res_header
+    # キャッシュを無効化する
+    response.set_header('Cache-Control', 'no-cache')
   end
 end
