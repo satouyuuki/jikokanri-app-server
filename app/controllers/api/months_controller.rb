@@ -1,9 +1,9 @@
 class Api::MonthsController < ApplicationController
   def show
-    logger.debug('current_user = ')
-    logger.debug(current_user)
-    logger.debug(current_user.id)
-    logger.debug('current_user end ')
+    logger.info('current_user = ')
+    logger.info(current_user)
+    logger.info(current_user.id)
+    logger.info('current_user end ')
     months = Month.where(user_id: current_user.id)
     render json: MonthService.res_data(months)
   end
