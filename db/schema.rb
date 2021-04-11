@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_092300) do
+ActiveRecord::Schema.define(version: 2021_04_08_004456) do
 
   create_table "months", charset: "utf8", force: :cascade do |t|
     t.integer "month"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_04_05_092300) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "year"
     t.integer "user_id"
-    t.index ["year", "month"], name: "index_months_on_year_and_month", unique: true
+    t.index ["year", "month", "user_id"], name: "index_months_on_year_and_month_and_user_id", unique: true
   end
 
   create_table "target_lists", charset: "utf8", force: :cascade do |t|

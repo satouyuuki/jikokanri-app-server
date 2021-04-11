@@ -1,6 +1,7 @@
 class Api::MonthsController < ApplicationController
   def show
-    render json: MonthService.res_data
+    months = Month.where(user_id: current_user.id)
+    render json: MonthService.res_data(months)
   end
   def create
     month = Month.new(
@@ -17,12 +18,16 @@ class Api::MonthsController < ApplicationController
         week.save!
       end
     end
-    render json: MonthService.res_data
+    
+    months = Month.where(user_id: current_user.id)
+    render json: MonthService.res_data(months)
   end
   def destroy
     id = params[:id]
     month = Month.find(id)
     month.destroy
+
+    months = Month.where(user_id: current_user.id)
     render json: MonthService.res_data
   end
 end

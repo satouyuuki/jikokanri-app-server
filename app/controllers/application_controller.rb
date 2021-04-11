@@ -24,16 +24,31 @@ class ApplicationController < ActionController::API
     logger.error(exception)
 
     case exception
+    when ActiveRecord::RecordNotUnique then _render_400(exception)
+    when ActionController::RoutingError then _render_404(exception)
     when ApplicationError then _render_app_err(exception)
     else _render_500(exception)
     end
   end
-  # ルートエラー500
+  # ログインしてないユーザが予期せぬURLを叩いた時
   def _render_500(error = nil)
     render json: {error: respond_error(error, TEST_ERROR_500)}, status: :internal_server_error
   end
+  # データ不整合や意図しないエラー
+  def _render_400(error = nil)
+    render json: {error: respond_error(error, TEST_ERROR_400)}, status: :internal_server_error    
+  end
+  # ログインしてないユーザが予期せぬURLを叩いた時
+  def _render_404(error = nil)
+    render json: {error: respond_error(error, TEST_ERROR_404)}, status: :internal_server_error
+  end
+  # development環境はエラーコードを返却し、それ以外はコードを返す
+  def respond_error(error, message)
+    return error.message if error.present? && Rails.env.development?
+    message
+  end
   # コントロールされたアプリケーションエラーを返却する
   def _render_app_err(error)
-    render json: {error: error.code, message: error.error}, status: :internal_server_error
+    render json: {error: error.error}, status: :internal_server_error
   end
 end

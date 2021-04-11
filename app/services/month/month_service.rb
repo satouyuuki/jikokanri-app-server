@@ -1,10 +1,12 @@
 class MonthService
   class << self
-    def res_data
-      months = Month.all
+    def res_data(months)
+      # months = Month.all
       res = []
       months.each do |month|
         month_data = {}
+        # month_data[:email] = month.user.email
+        month_data[:user_id] = month.user_id
         month_data[:id] = month.id
         month_data[:year] = month.year
         month_data[:month] = month.month

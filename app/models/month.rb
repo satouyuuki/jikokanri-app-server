@@ -11,4 +11,5 @@ class Month < ApplicationRecord
   }
   has_many :weeks, dependent: :destroy
   has_many :target_lists, dependent: :destroy
+  belongs_to :user
 end

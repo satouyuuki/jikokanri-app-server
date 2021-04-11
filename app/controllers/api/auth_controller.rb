@@ -10,7 +10,7 @@ class Api::AuthController < ApplicationController
       resp = CognitoService.invite_user_create(user_object)
     rescue => exception
       # resp = exception
-      raise ApplicationError.new(TEST_ERROR, error: exception) if exception
+      raise ApplicationError.new(error: exception) if exception
     end
     render json: resp
   end
@@ -21,15 +21,16 @@ class Api::AuthController < ApplicationController
     }
     begin
       resp = CognitoService.authenticate(user_object).authentication_result
-      resp_data = {}
-      resp_data[:access_token] = resp.access_token
       User.transaction do
-        user = User.find_by(email: params[:username])
-        user.token = resp_data[:access_token]
-        user.save!
+        @user = User.find_by(email: params[:username])
+        @user.token = resp.access_token
+        @user.save!
       end
+      resp_data = {}
+      resp_data[:access_token] = @user.token
+      resp_data[:email] = @user.email
     rescue => exception
-      raise ApplicationError.new(TEST_ERROR, error: exception) if exception
+      raise ApplicationError.new(error: exception) if exception
     end
     render json: resp_data
   end

@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 class ApplicationError < StandardError
-  attr_reader :error, :code
+  attr_reader :error
 
-  def initialize(code, error: nil)
-    super(code)
-    @code = code
+  def initialize(error: nil)
     @error = error
   end
 
