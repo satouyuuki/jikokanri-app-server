@@ -11,6 +11,7 @@ class MonthService
         month_data[:year] = month.year
         month_data[:month] = month.month
         month_data[:weeks] = []
+        month_data[:target_lists_flag] = month.target_lists.present?
         res.push(month_data)
         weeks = month.weeks
         weeks.each do |week|
